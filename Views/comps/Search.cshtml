@@ -1,0 +1,45 @@
+﻿@model PickME.Models.playerSearchViewModel
+
+@{
+    ViewBag.Title = "Search";
+}
+
+<div class="playerSearchForm">
+    <form method="get">
+        <label for="player1">
+            First Player
+        </label>
+        <input type="text" name="player1" id="player1" />
+        <label for="player2">
+            Second Player
+        </label>
+        <input type="text" name="player2" id="player2" />
+        <input type="submit" value="Search" />
+    </form>
+    
+</div>
+@if (Model != null && Model.playerOneList != null && Model.playerTwoList != null)
+{
+<div class="playerSearchResult">
+    <div>
+        @foreach (var player in Model.playerOneList)
+        {
+            <div>
+                @player.Name <img src="@player.PhotoUrl" />
+            </div>
+        }
+    </div>
+    <hr />
+    <div>
+        @foreach (var player in Model.playerTwoList)
+        {
+            <div>
+                @player.Name <img src="@player.PhotoUrl" />
+            </div>
+        }
+    </div>
+</div>
+
+}
+
+

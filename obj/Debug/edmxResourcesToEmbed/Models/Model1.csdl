@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PickMEModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="comp">
+    <Key>
+      <PropertyRef Name="compId" />
+    </Key>
+    <Property Name="compId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="userId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="firstPlayerId" Type="Int32" Nullable="false" />
+    <Property Name="secondPlayerId" Type="Int32" Nullable="false" />
+    <Property Name="exp" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="userProfile" Relationship="Self.FK__comp__userId__398D8EEE" FromRole="comp" ToRole="userProfile" />
+    <NavigationProperty Name="scores" Relationship="Self.FK__score__compId__3D5E1FD2" FromRole="comp" ToRole="score" />
+    <NavigationProperty Name="comments" Relationship="PickMEModel.FK__comment__compId__4222D4EF" FromRole="comp" ToRole="comment" />
+  </EntityType>
+  <EntityType Name="score">
+    <Key>
+      <PropertyRef Name="scoreId" />
+    </Key>
+    <Property Name="scoreId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="compId" Type="Int32" Nullable="false" />
+    <Property Name="userId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="isFirstPlayerBetter" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="comp" Relationship="Self.FK__score__compId__3D5E1FD2" FromRole="score" ToRole="comp" />
+    <NavigationProperty Name="userProfile" Relationship="Self.FK__score__userId__3E52440B" FromRole="score" ToRole="userProfile" />
+  </EntityType>
+  <EntityType Name="userProfile">
+    <Key>
+      <PropertyRef Name="userId" />
+    </Key>
+    <Property Name="userId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="userName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="comps" Relationship="Self.FK__comp__userId__398D8EEE" FromRole="userProfile" ToRole="comp" />
+    <NavigationProperty Name="scores" Relationship="Self.FK__score__userId__3E52440B" FromRole="userProfile" ToRole="score" />
+    <NavigationProperty Name="comments" Relationship="PickMEModel.FK__comment__userId__412EB0B6" FromRole="userProfile" ToRole="comment" />
+    <NavigationProperty Name="comments1" Relationship="PickMEModel.rating" FromRole="userProfile" ToRole="comment" />
+  </EntityType>
+  <Association Name="FK__comp__userId__398D8EEE">
+    <End Role="userProfile" Type="Self.userProfile" Multiplicity="1" />
+    <End Role="comp" Type="Self.comp" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="userProfile">
+        <PropertyRef Name="userId" />
+      </Principal>
+      <Dependent Role="comp">
+        <PropertyRef Name="userId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__score__compId__3D5E1FD2">
+    <End Role="comp" Type="Self.comp" Multiplicity="1" />
+    <End Role="score" Type="Self.score" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="comp">
+        <PropertyRef Name="compId" />
+      </Principal>
+      <Dependent Role="score">
+        <PropertyRef Name="compId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__score__userId__3E52440B">
+    <End Role="userProfile" Type="Self.userProfile" Multiplicity="1" />
+    <End Role="score" Type="Self.score" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="userProfile">
+        <PropertyRef Name="userId" />
+      </Principal>
+      <Dependent Role="score">
+        <PropertyRef Name="userId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="PickMEEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="comps" EntityType="Self.comp" />
+    <EntitySet Name="scores" EntityType="Self.score" />
+    <EntitySet Name="userProfiles" EntityType="Self.userProfile" />
+    <AssociationSet Name="FK__comp__userId__398D8EEE" Association="Self.FK__comp__userId__398D8EEE">
+      <End Role="userProfile" EntitySet="userProfiles" />
+      <End Role="comp" EntitySet="comps" />
+    </AssociationSet>
+    <AssociationSet Name="FK__score__compId__3D5E1FD2" Association="Self.FK__score__compId__3D5E1FD2">
+      <End Role="comp" EntitySet="comps" />
+      <End Role="score" EntitySet="scores" />
+    </AssociationSet>
+    <AssociationSet Name="FK__score__userId__3E52440B" Association="Self.FK__score__userId__3E52440B">
+      <End Role="userProfile" EntitySet="userProfiles" />
+      <End Role="score" EntitySet="scores" />
+    </AssociationSet>
+    <EntitySet Name="comments" EntityType="PickMEModel.comment" />
+    <AssociationSet Name="FK__comment__compId__4222D4EF" Association="PickMEModel.FK__comment__compId__4222D4EF">
+      <End Role="comp" EntitySet="comps" />
+      <End Role="comment" EntitySet="comments" />
+    </AssociationSet>
+    <AssociationSet Name="FK__comment__userId__412EB0B6" Association="PickMEModel.FK__comment__userId__412EB0B6">
+      <End Role="userProfile" EntitySet="userProfiles" />
+      <End Role="comment" EntitySet="comments" />
+    </AssociationSet>
+    <AssociationSet Name="rating" Association="PickMEModel.rating">
+      <End Role="comment" EntitySet="comments" />
+      <End Role="userProfile" EntitySet="userProfiles" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="comment">
+    <Key>
+      <PropertyRef Name="commentId" />
+    </Key>
+    <Property Name="commentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="userId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="compId" Type="Int32" Nullable="false" />
+    <Property Name="dateTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="text" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="comp" Relationship="PickMEModel.FK__comment__compId__4222D4EF" FromRole="comment" ToRole="comp" />
+    <NavigationProperty Name="userProfile" Relationship="PickMEModel.FK__comment__userId__412EB0B6" FromRole="comment" ToRole="userProfile" />
+    <NavigationProperty Name="userProfiles" Relationship="PickMEModel.rating" FromRole="comment" ToRole="userProfile" />
+  </EntityType>
+  <Association Name="FK__comment__compId__4222D4EF">
+    <End Type="PickMEModel.comp" Role="comp" Multiplicity="1" />
+    <End Type="PickMEModel.comment" Role="comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="comp">
+        <PropertyRef Name="compId" />
+      </Principal>
+      <Dependent Role="comment">
+        <PropertyRef Name="compId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__comment__userId__412EB0B6">
+    <End Type="PickMEModel.userProfile" Role="userProfile" Multiplicity="1" />
+    <End Type="PickMEModel.comment" Role="comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="userProfile">
+        <PropertyRef Name="userId" />
+      </Principal>
+      <Dependent Role="comment">
+        <PropertyRef Name="userId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="rating">
+    <End Type="PickMEModel.comment" Role="comment" Multiplicity="*" />
+    <End Type="PickMEModel.userProfile" Role="userProfile" Multiplicity="*" />
+  </Association>
+</Schema>

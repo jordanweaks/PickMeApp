@@ -1,0 +1,51 @@
+﻿@model IEnumerable<PickME.Models.viewModels.compViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Search", "Player")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.firstPlayer)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.secondPlayer)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.firstPlayerScore)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.secondPlayerScore)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        <img src="@item.firstPlayer.PhotoUrl" />@item.firstPlayer.Name
+    </td>
+    <td>
+        <img src="@item.secondPlayer.PhotoUrl" />@item.secondPlayer.Name
+    </td>
+    <th>
+        @Html.DisplayFor(modelItem => item.firstPlayerScore)
+    </th>
+    <th>
+        @Html.DisplayFor(modelItem => item.secondPlayerScore)
+    </th>
+    <td>
+        @*@Html.ActionLink("Edit", "Edit", new { id=item.compId })*@ 
+        @Html.ActionLink("Details", "Details", new { id = item.compId }) <hr />
+        @Html.ActionLink("Delete", "Delete", new { id = item.compId })
+    </td>
+</tr>
+}
+
+</table>

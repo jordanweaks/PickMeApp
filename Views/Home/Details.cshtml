@@ -1,0 +1,129 @@
+﻿@model PickME.Models.viewModels.compViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+    <section id="main">
+        <div class="inner">
+            <h2>Comparison Details</h2>
+
+
+            @*@Html.ActionLink("Create New Post", "Search", "Player")<br />*@
+            <p>
+                @Html.ActionLink("Back to Profile", "Account", "Home","MyComparisons")
+
+            </p>
+
+            @*@Html.ActionLink("Delete Comparison", "Delete", new { id = Model.compId })*@
+
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.firstPlayer)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.secondPlayer)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.firstPlayerScore)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.secondPlayerScore)
+                    </th>
+                    <th></th>
+                </tr>
+
+
+                <tr>
+                    <td>
+                        <img src="@Model.firstPlayer.PhotoUrl" />@Model.firstPlayer.Name
+                    </td>
+                    <td>
+                        <img src="@Model.secondPlayer.PhotoUrl" />@Model.secondPlayer.Name
+                    </td>
+                    <th>
+                        <button type="button" class="btn btn-default score" aria-label="Left Align" onclick="ScoreFirstPlayer()">
+                            <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+                        </button>
+                        @Html.DisplayFor(model => model.firstPlayerScore)
+                    </th>
+                    <th>
+                        <button type="button" class="btn btn-default score" aria-label="Left Align" onclick="ScoreSecondPlayer()">
+                            <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+                        </button>
+                        @Html.DisplayFor(model => model.secondPlayerScore)
+                    </th>
+                    <td>
+                        @*@Html.ActionLink("Edit", "Edit", new { id=item.compId })*@
+
+                    </td>
+                </tr>
+
+
+            </table>
+            <div class="commentBox">
+                @foreach (var comment in Model.comments)
+                {
+                    <div class="sepComment">
+                        <div class="commentUN">@comment.userProfile.userName</div>
+                        <button type="button" class="btn btn-default score" aria-label="Left Align" onclick="rating(@comment.commentId)">
+                            <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+                        </button>       <div class="ratingButton">@comment.userProfiles.Count()</div>
+
+                        <div class="commentText">@comment.text</div>
+
+                    </div>
+
+
+                }
+                @Html.ActionLink("Create Comment","Create","comments", new {id=Model.compId }, null)
+            </div>
+            <br />
+
+
+            @section Scripts
+    {
+                <script type="text/javascript">
+        function ScoreFirstPlayer()
+        {
+            var url = "/comps/FirstPlayerScore/@Model.compId";
+            $.post({
+                url: url
+
+            })
+                .then(function () {
+                    location.reload();
+                })
+
+        }
+                function ScoreSecondPlayer()
+        {
+            var url = "/comps/SecondPlayerScore/@Model.compId";
+            $.post({
+                url: url
+
+            })
+                .then(function () {
+                    location.reload();
+                });
+
+        }
+        function rating(commentId)
+        {
+            var url = "/comments/rateComment/" + commentId;
+            $.post({
+                url: url
+
+            })
+                .then(function () {
+                    location.reload();
+                })
+
+        }
+
+
+
+                </script>
+            }
+</div>
+</section>

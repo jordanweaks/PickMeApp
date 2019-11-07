@@ -1,0 +1,89 @@
+﻿<!DOCTYPE HTML>
+
+<html>
+<head>
+    <title>PickME</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+
+    <link href="~/Content/main.css" rel="stylesheet" />
+
+</head>
+<body>
+
+    <!-- Header -->
+    <header id="header">
+        <a href="index.html" class="logo">
+            <strong>PickME</strong>
+            <nav>
+                <a href="#menu">Menu</a>
+            </nav>
+    </header>
+
+    <!-- Nav -->
+    <nav id="menu">
+        <ul class="links">
+            @*<li><a href="index.html">Home</a></li>
+        <li><a href="search_player.html">Search players</a></li>
+        <li><a href="signup.html">Signup</a></li>
+        <li><a href="login.html">Login</a></li>
+        <li><a href="account.html">Account</a></li>*@
+            <li>@Html.ActionLink("Home", "Account", "Home")</li>
+            <li>@Html.ActionLink("Search Players", "Index", "Player")</li>
+            <li>@Html.ActionLink("Register", "Register", "Account")</li>
+            <li>@Html.ActionLink("Log in", "Login", "Account")</li>
+            <li>@Html.ActionLink("Profile", "Account", "Home", new { id = "MyComparisons" }, null)</li>
+            <li>@Html.ActionLink("About", "Index", "Home")</li>
+
+        </ul>
+    </nav>
+
+    <!-- Main -->
+    <section id="main">
+        <div class="inner">
+            <!-- <h2> Account</h2>
+             -->
+            <div class="image fit">
+                <!-- <img src="images/pic11.jpg" alt="" /> -->
+
+            </div>
+            <header>
+                <form>
+                    <!--   First player:<br>
+                      <input type="text"><br>
+                      Second player:<br>
+                      <input type="text" ><br>
+                        <input type="submit" value="Search"> -->
+
+
+                </form>
+            </header>
+
+        </div>
+    </section>
+    @RenderBody()
+    <!-- Footer -->
+    <footer id="footer">
+        <!-- <ul class="icons">
+            <li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+            <li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+            <li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+        </ul> -->
+        <div class="copyright">
+            &copy; PickME
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="~/Scripts/jquery.min.js"></script>
+    <script src="~/Scripts/jquery.scrolly.min.js"></script>
+    <script src="~/Scripts/skel.min.js"></script>
+    <script src="~/Scripts/util.js"></script>
+    <script src="~/Scripts/main.js"></script>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

@@ -1,0 +1,42 @@
+﻿@model PickME.Models.comment
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>comment</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.dateTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dateTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.comp.userId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.comp.userId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.userProfile.userName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.userProfile.userName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.commentId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

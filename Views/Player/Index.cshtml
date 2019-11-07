@@ -1,0 +1,56 @@
+﻿@model PickME.Models.playerSearchViewModel
+<section id="main">
+    <div class="inner">
+        <div class="image fit">
+            <br>
+            <h2> If more than one option appear, refine your search. If there are no options, spell the player's name correctly!</h2>
+
+            <img src="~/Images/pic11.JPG" />
+
+        </div>
+        <header>
+            <form>
+                First player:<br>
+                <input type="text" name="player1" id="player1" />
+                <br>
+                Second player:<br>
+                <input type="text" name="player2" id="player2" /><br>
+                <input type="submit" value="Search" color="#3498db">
+
+            </form>
+        </header>
+        @if (Model != null && Model.playerOneList != null && Model.playerTwoList != null)
+        {
+            <div class="playerSearchResult">
+                <div>
+                    @foreach (var player in Model.playerOneList)
+                    {
+                        <div>
+                            @player.Name <img src="@player.PhotoUrl" />
+                        </div>
+                    }
+                </div>
+                <hr />
+                <div>
+                    @foreach (var player in Model.playerTwoList)
+                    {
+                        <div>
+                            @player.Name <img src="@player.PhotoUrl" />
+                        </div>
+                    }
+                </div>
+            </div>
+
+
+        }
+        @if (Model!=null&&Model.isRightComp)
+        {
+    <form action="~/Player/Confirmation">
+        <input type="hidden" name="playerOneId" value="@Model.playerOneList.First().PlayerID" />
+        <input type="hidden" name="playerTwoId" value="@Model.playerTwoList.First().PlayerID" /><br />
+        <input type="submit" value="Ask Community"/>
+    </form>
+        }
+    </div>
+        
+</section>

@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="PickMEModelStoreContainer" CdmEntityContainer="PickMEEntities">
+    <EntitySetMapping Name="comps">
+      <EntityTypeMapping TypeName="PickMEModel.comp">
+        <MappingFragment StoreEntitySet="comp">
+          <ScalarProperty Name="compId" ColumnName="compId" />
+          <ScalarProperty Name="userId" ColumnName="userId" />
+          <ScalarProperty Name="firstPlayerId" ColumnName="firstPlayerId" />
+          <ScalarProperty Name="secondPlayerId" ColumnName="secondPlayerId" />
+          <ScalarProperty Name="exp" ColumnName="exp" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="scores">
+      <EntityTypeMapping TypeName="PickMEModel.score">
+        <MappingFragment StoreEntitySet="score">
+          <ScalarProperty Name="scoreId" ColumnName="scoreId" />
+          <ScalarProperty Name="compId" ColumnName="compId" />
+          <ScalarProperty Name="userId" ColumnName="userId" />
+          <ScalarProperty Name="isFirstPlayerBetter" ColumnName="isFirstPlayerBetter" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="userProfiles">
+      <EntityTypeMapping TypeName="PickMEModel.userProfile">
+        <MappingFragment StoreEntitySet="userProfile">
+          <ScalarProperty Name="userId" ColumnName="userId" />
+          <ScalarProperty Name="userName" ColumnName="userName" />
+          <ScalarProperty Name="email" ColumnName="email" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="comments">
+      <EntityTypeMapping TypeName="PickMEModel.comment">
+        <MappingFragment StoreEntitySet="comment">
+          <ScalarProperty Name="text" ColumnName="text" />
+          <ScalarProperty Name="dateTime" ColumnName="dateTime" />
+          <ScalarProperty Name="compId" ColumnName="compId" />
+          <ScalarProperty Name="userId" ColumnName="userId" />
+          <ScalarProperty Name="commentId" ColumnName="commentId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="rating" TypeName="PickMEModel.rating" StoreEntitySet="rating">
+      <EndProperty Name="userProfile">
+        <ScalarProperty Name="userId" ColumnName="userId" />
+      </EndProperty>
+      <EndProperty Name="comment">
+        <ScalarProperty Name="commentId" ColumnName="commentId" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>
